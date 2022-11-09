@@ -9,13 +9,6 @@ function [] = run_instructions(ioStruct, instructPath, responseMapFunction)
     % build the response map for each insturction slide
     [backKeys, nextKeys] = responseMapFunction(ioStruct, length(ioStruct.instructions));
     
-    % initialize the instruction display
-    instructionWidth = 960 * 1.5;
-    instructionHeight = 540 * 1.5;
-    leftX = ioStruct.centerX - round((instructionWidth/2));
-    topY = ioStruct.centerY - round((instructionHeight/2));
-    ioStruct.instructionRect = [leftX, topY, leftX+instructionWidth, topY+instructionHeight];
-    
     % list of instructions to show
     instructions = 1:size(ioStruct.instructions);
     % init the current instruction
@@ -25,7 +18,7 @@ function [] = run_instructions(ioStruct, instructPath, responseMapFunction)
     doneInst = false;
     while ~doneInst
         % show instructions
-        Screen('DrawTexture', ioStruct.wPtr, ioStruct.instructions(currentInst), [], ioStruct.instructionRect );
+        Screen('DrawTexture', ioStruct.wPtr, ioStruct.instructions(currentInst), [], ioStruct.wPtrRect );
         Screen(ioStruct.wPtr, 'Flip');
         
         % wait for navigation input

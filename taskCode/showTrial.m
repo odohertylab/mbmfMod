@@ -137,6 +137,8 @@ function trialSpec = showTrial(ioStruct, trialSpec)
     [pressed] = KbQueueCheck(ioStruct.devID);
     if pressed      %if there is a premature key press
         trialSpec = showTooSoon(ioStruct, trialSpec);
+        KbQueueFlush(ioStruct.devID);
+        ListenChar(2);
         return;
     end
     KbQueueFlush(ioStruct.devID);
@@ -217,9 +219,6 @@ function trialSpec = showTooSlowOutcome(ioStruct, trialSpec)
 end
 
 function trialSpec = showTooSoon(ioStruct, trialSpec)
-    KbQueueStop(ioStruct.devID);
-    KbQueueFlush(ioStruct.devID);
-    ListenChar(2);
     % clear the screen
     Screen(ioStruct.wPtr, 'Flip');
     % show error text
